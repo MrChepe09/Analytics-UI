@@ -1,0 +1,226 @@
+import React, { useState } from 'react';
+import { BarChart3, LineChart, PieChart, TrendingUp, Activity, Github, Twitter, Mail, Menu, X, Copy, Check, Code2, Eye, ArrowLeft } from 'lucide-react';
+import { ResponsiveContainer, PolarRadiusAxis, RadialBarChart, RadialBar, Label } from 'recharts';
+import { Link } from 'react-router-dom';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import RadialChart from '@/components/RadialChart';
+
+export default function RadialChartPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [activeView, setActiveView] = useState('preview'); // 'preview' or 'code'
+
+  const chartCode = `import { ResponsiveContainer, RadialBarChart, PolarRadiusAxis, Label, RadialBar } from "recharts";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
+
+export function RadialChartComponent() {
+  return (
+    <ChartContainer
+          config={{
+            desktop: {
+              label: "Desktop",
+              color: "#8b5cf6",
+            },
+          }}
+          className="mx-auto flex items-center justify-center aspect-square w-full max-w-[30vh]"
+        >
+          <RadialBarChart
+            data={[{ month: "january", desktop: 1260, mobile: 570 }]}
+            endAngle={180}
+            innerRadius={80}
+            outerRadius={130}
+          >
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    const total = 1260 + 570
+                    return (
+                      <text x={viewBox.cx} y={viewBox.cy} fill="white" textAnchor="middle">
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) - 16}
+                          className="fill-foreground text-2xl font-bold"
+                        >
+                          {total.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 4}
+                          className="fill-muted-foreground"
+                        >
+                          Visitors
+                        </tspan>
+                      </text>
+                    )
+                  }
+                  return null
+                }}
+              />
+            </PolarRadiusAxis>
+            <RadialBar
+              dataKey="desktop"
+              stackId="a"
+              cornerRadius={5}
+              fill="var(--color-desktop)"
+              className="stroke-transparent stroke-2"
+            />
+          </RadialBarChart>
+        </ChartContainer>
+  );
+}`;
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(chartCode);
+      setCopiedCode(true);
+      setTimeout(() => setCopiedCode(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy code:', err);
+    }
+  };
+
+  const chartTypes = [
+    { name: 'Line Charts', icon: TrendingUp },
+    { name: 'Bar Charts', icon: BarChart3 },
+    { name: 'Pie Charts', icon: PieChart },
+    { name: 'Area Charts', icon: Activity },
+    // { name: 'Radar Charts', icon: LineChart },
+    // { name: 'Radial Charts', icon: LineChart },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Navigation */}
+      <Navbar />
+
+      {/* Main Content */}
+      <main className="relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Back Button */}
+          <button className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors duration-200 mb-8 group">
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
+            <span><Link to="/charts/explore">Back to Components</Link></span>
+          </button>
+
+          {/* Chart Header */}
+          <div className="mb-8">
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl">
+                <TrendingUp className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">Radial Chart</h1>
+                <p className="text-lg text-white/80">Perfect for showing trends over time</p>
+              </div>
+            </div>
+            <p className="text-white/70 max-w-3xl leading-relaxed">
+              Ideal for representing percentage completion or progress. Use it to visualize KPIs, goal tracking, or performance ratios.
+            </p>
+          </div>
+
+          {/* Chart Container */}
+          <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden">
+            {/* Controls */}
+            <div className="flex items-center justify-between p-4 border-b border-white/10">
+              <div className="flex items-center space-x-1">
+                <button
+                  onClick={() => setActiveView('preview')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                    activeView === 'preview'
+                      ? 'bg-white/10 text-white'
+                      : 'text-white/60 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <Eye className="w-4 h-4" />
+                  <span>Preview</span>
+                </button>
+                <button
+                  onClick={() => setActiveView('code')}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                    activeView === 'code'
+                      ? 'bg-white/10 text-white'
+                      : 'text-white/60 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <Code2 className="w-4 h-4" />
+                  <span>Code</span>
+                </button>
+              </div>
+              
+              {activeView === 'code' && (
+                <button
+                  onClick={copyToClipboard}
+                  className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg font-medium transition-all duration-200 border border-white/20"
+                >
+                  {copiedCode ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-400" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      <span>Copy Code</span>
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+
+            {/* Content */}
+            <div className="p-6">
+              {activeView === 'preview' ? (
+                <div className="w-full h-80 bg-gray-900/50 rounded-xl p-6 border border-white/10">
+                  <RadialChart />
+                </div>
+              ) : (
+                <div className="relative">
+                  <pre className="bg-gray-900/80 text-gray-300 p-6 rounded-xl overflow-x-auto text-sm leading-relaxed border border-white/10">
+                    <code>{chartCode}</code>
+                  </pre>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Features */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-6 border border-white/10">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mb-4">
+                <TrendingUp className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Responsive Design</h3>
+              <p className="text-white/70 text-sm">Automatically adapts to any screen size and container width for perfect mobile experience.</p>
+            </div>
+            
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-6 border border-white/10">
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+                <Activity className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Multiple Series</h3>
+              <p className="text-white/70 text-sm">Support for multiple data series with different colors and styling options.</p>
+            </div>
+            
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-6 border border-white/10">
+              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg flex items-center justify-center mb-4">
+                <BarChart3 className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Customizable</h3>
+              <p className="text-white/70 text-sm">Easy to customize colors, styling, tooltips, and animations to match your brand.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
+}
