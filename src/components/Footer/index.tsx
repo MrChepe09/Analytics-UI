@@ -62,8 +62,8 @@ const Footer = () => {
               <ul className="space-y-2">
                 <li><a href="/getstarted" className="text-white/70 hover:text-white transition-colors">Documentation</a></li>
                 <li><a href="/charts/explore" className="text-white/70 hover:text-white transition-colors">Examples</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">GitHub</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors">Support</a></li>
+                <li><a target="_blank" href="https://github.com/MrChepe09/Analytics-UI" className="text-white/70 hover:text-white transition-colors">GitHub</a></li>
+                <li><a target="_blank" href="https://github.com/MrChepe09/Analytics-UI" className="text-white/70 hover:text-white transition-colors">Support</a></li>
               </ul>
             </div>
           </div>
