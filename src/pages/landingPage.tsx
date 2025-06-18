@@ -90,7 +90,7 @@ export default function LandingPage() {
               </button>
               <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all duration-200 flex items-center space-x-2">
                 <Github className="w-5 h-5" />
-                <span>View on GitHub</span>
+                <Link target="_blank" to="https://github.com/MrChepe09/Analytics-UI">View on GitHub</Link>
               </button>
             </div>
 
