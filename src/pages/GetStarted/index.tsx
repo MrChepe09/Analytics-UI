@@ -271,7 +271,7 @@ export function EnhancedChart() {
           </p>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <a href="#" className="flex items-center p-4 bg-white/10 rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-200 group">
+            <a href="/charts/explore" className="flex items-center p-4 bg-white/10 rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-200 group">
               <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                 <BarChart3 className="w-5 h-5 text-white" />
               </div>
@@ -282,7 +282,7 @@ export function EnhancedChart() {
               <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all duration-200 flex-shrink-0" />
             </a>
             
-            <a href="#" className="flex items-center p-4 bg-white/10 rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-200 group">
+            <a href="/analytics" className="flex items-center p-4 bg-white/10 rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-200 group">
               <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                 <Code className="w-5 h-5 text-white" />
               </div>
